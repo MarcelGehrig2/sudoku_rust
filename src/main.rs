@@ -12,9 +12,9 @@ fn main() {
     println!(r"\_| \_|\___/\____/  \_/   \____/ \__,_|\__,_|\___/|_|\_\\__,_| \____/ \___/|_| \_/ \___|_|   "); 
     println!("##############################################################################################");
 
-    let file = "./data/easy_sudoku.txt";
+    let file = "./data/sudoku.txt";
     let boards = read_file::read_input(file);    
-                                                                                                
+                                     
     println!("Found {} Sudoku Board(s) in {}",boards.len(), file);
     
     for board in boards {
@@ -22,11 +22,17 @@ fn main() {
 
         println!(r"**********************************************************************************************");
         println!("Solving Board:");
-        solver::Solver::solve(&mut cur_board);
         cur_board.print();
-        //solve...
-        println!("Solved Board:");
-        cur_board.print();
+        if solver::Solver::solve(&mut cur_board) {
+            println!("Solved Board:");
+            cur_board.print();
+        }
+        else{
+            println!("");
+        }
     }
+
+    println!(r"**********************************************************************************************");
+    println!(r"Done... =)")
 
 }

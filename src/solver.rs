@@ -6,11 +6,7 @@ pub struct Solver {
 }
 
 impl Solver {
-    pub fn solve(board: &mut Board) {
-
-        
-        println!("--- starting solving ----");
-
+    pub fn solve(board: &mut Board) -> bool{
         let mut valid_found = true;
         let mut board_solved = false;
         let mut back_tracking = false;
@@ -86,18 +82,8 @@ impl Solver {
                     break
                 }
             }
-
-            if back_tracking {
-            }
-
-            // Printout
-            counter = counter + 1;
-            if counter % printout_period == 0 {
-                board.print();
-                counter = counter;
-            }
-
         }
+        board_solved
 
     }
 
