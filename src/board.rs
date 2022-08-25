@@ -59,11 +59,11 @@ impl Board {
         self.cells[i_row][i_col].mutable
     }
 
-    pub fn get_cell_value(&self, i_row: usize, i_col: usize) -> u8 {
+    pub fn get_cell_value(&self, i_row: usize, i_col: usize) -> u32 {
         self.cells[i_row][i_col].value
     }
 
-    pub fn is_cell_valid(&self, i_row: usize, i_col: usize, val: u8) -> bool {
+    pub fn is_cell_valid(&self, i_row: usize, i_col: usize, val: u32) -> bool {
         if !self.is_cell_mutable(i_row, i_col) {
             return false;
         }
