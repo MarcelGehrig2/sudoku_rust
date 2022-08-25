@@ -14,7 +14,7 @@ pub struct Board {
 
 impl Board {
     pub fn new() -> Self {
-        let empty_cell: Cell = Cell {value: 0, mutable: false};
+        let empty_cell: Cell = Cell {value: 0, mutable: true};
         Self{cells: [[empty_cell; 9]; 9]}
     }
 
@@ -82,8 +82,8 @@ impl Board {
         let start_col_box = i_col / 3;
         let start_row_box = i_row / 3;
 
-        for row in (3 * start_row_box)..((3 * start_row_box) + 2) {
-            for col in (3 * start_col_box)..((3 * start_col_box) + 2) {
+        for row in (3 * start_row_box)..((3 * start_row_box) + 3) {
+            for col in (3 * start_col_box)..((3 * start_col_box) + 3) {
                 if self.get_cell_value(row, col) == val {
                     return false;
                 }
