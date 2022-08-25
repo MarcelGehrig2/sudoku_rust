@@ -15,20 +15,34 @@ impl Solver {
         let mut board_solved = false;
         let mut back_tracking = false;
         let mut counter = 0;
-        let printout_period = 1000;
+        let printout_period = 1;
         let mut i_column = 0;
         let mut i_row = 0;
+        
+        Board::get_prev_index(&mut i_row, &mut i_column);
 
         while !board_solved {
             valid_found = false;
 
-            // cant modify unmutable cells
-            if !board.is_cell_mutable(i_row, i_column) {
+            // if we dont found a valid soulution we go back
+            back_tracking = !valid_found;
+
+            if valid_found {
                 if i_column == 8 && i_row == 8 {
                     board_solved = true;
                     break;
                 }
                 Board::get_next_index(&mut i_row, &mut i_column);
+            } else {
+                if i_column == 0 && i_row == 0 {
+                    println!("XXXXXXX not possible");
+                    break
+                }
+                Board::get_prev_index(&mut i_row, &mut i_column);
+            }
+
+            // cant modify unmutable cells
+            if !board.is_cell_mutable(i_row, i_column) {
                 continue;
             }
             
@@ -58,22 +72,7 @@ impl Solver {
                 }
             }
 
-            // if we dont found a valid soulution we go back
-            back_tracking = !valid_found;
 
-            if valid_found {
-                if i_column == 8 && i_row == 8 {
-                    board_solved = true;
-                    break;
-                }
-                Board::get_next_index(&mut i_row, &mut i_column);
-            } else {
-                if i_column == 0 && i_row == 0 {
-                    println!("XXXXXXX not possible");
-                    break
-                }
-                Board::get_prev_index(&mut i_row, &mut i_column);
-            }
 
             // Printout
             counter = counter + 1;
