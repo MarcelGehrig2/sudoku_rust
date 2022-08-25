@@ -11,47 +11,34 @@ where P: AsRef<Path>, {
 }
 
 
-pub fn read_input(file_path: &str) {
+pub fn read_input(file_path: &str) -> Vec<String> {
+
+    let mut board_strings = Vec::new();
 
     if let Ok(lines) = read_lines(&file_path) {
+                
+        let mut board = String::from("");
         
-        let mut cur_grid_nr = 0;
-        let mut cur_row = 0;
         for line in lines {
             if let Ok(current_line) = line {
 
                 if current_line.contains("Grid") {
-
-                    let mut iter = current_line.split_ascii_whitespace();
-                    iter.next();
-                    cur_grid_nr = iter.next().unwrap_or_default().parse::<u32>().unwrap();
-                    cur_row = 0;
-                    println!("New GRID Nr {}", cur_grid_nr);
+                    if board.len() == 81 {
+                        board_strings.push(board);
+                    }
+                    board = String::from("");
                 }
                 else {
-                    //println!("Grid data (Grid Nr {}):", cur_grid_nr);
-
-                    let count = current_line.chars().count();
-                    assert_eq!(9, count);
-
-
-                    let digits = current_line.chars();
-
-                    let mut cur_col = 0;
-                    //println!("{}", digits.next().unwrap());
-                    for digit in digits {
-                        assert!(digit.is_numeric());
-                        let digit_nr = digit.to_digit(10).unwrap();
-                        if digit_nr > 0 {
-                            //TODO: Set Digit in Board
-                            //println!("row {} col {} is {}", cur_row, cur_col, digit);
-                        }
-                        cur_col = cur_col + 1;
-                    }
-
-                    cur_row = cur_row + 1;
+                    board.push_str(&current_line);
+                    
                 }
             }
         }
+        if board.len() == 81 {
+            board_strings.push(board);
+        }
     }
+
+    board_strings
+    
 }
