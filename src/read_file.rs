@@ -11,9 +11,9 @@ where P: AsRef<Path>, {
 }
 
 
-pub fn read_input() {
+pub fn read_input(file_path: &str) {
 
-    if let Ok(lines) = read_lines("./data/sudoku.txt") {
+    if let Ok(lines) = read_lines(&file_path) {
         
         let mut cur_grid_nr = 0;
         let mut cur_row = 0;

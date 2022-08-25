@@ -5,5 +5,5 @@ mod read_file;
 
 fn main() {
     println!("Hello, world!");
-    read_input();
+    read_input("./data/easy_sudoku.txt");
 }
