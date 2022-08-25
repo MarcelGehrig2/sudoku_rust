@@ -51,6 +51,49 @@ impl Board {
          my_board
     }
 
+    pub fn is_cell_mutable(&self, i_row: usize, i_col: usize) -> bool {
+        self.cells[i_row][i_col].mutable
+    }
+
+    pub fn get_cell_value(&self, i_row: usize, i_col: usize) -> u32 {
+        self.cells[i_row][i_col].value
+    }
+
+    pub fn is_cell_valid(&self, i_row: usize, i_col: usize, val: u32) -> bool {
+        if !self.is_cell_mutable(i_row, i_col) {
+            return false;
+        }
+
+        //Check Row
+        for col in 0..8 {
+            if self.get_cell_value(i_row, col) == val {
+                return false;
+            }
+        }
+
+        //Check Column
+        for row in 0..8 {
+            if self.get_cell_value(row, i_col) == val {
+                return false;
+            }
+        }
+
+        //Check Box
+        let start_col_box = i_col / 3;
+        let start_row_box = i_row / 3;
+
+        for row in (3 * start_row_box)..((3 * start_row_box) + 2) {
+            for col in (3 * start_col_box)..((3 * start_col_box) + 2) {
+                if self.get_cell_value(row, col) == val {
+                    return false;
+                }
+            }
+        }
+
+        true
+    }
+
+
     pub fn print(&self){
         println!(" -------+-------+------- ");
         for (i, row) in self.cells.iter().enumerate() {
