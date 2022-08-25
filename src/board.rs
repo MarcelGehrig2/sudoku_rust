@@ -14,7 +14,7 @@ pub struct Board {
 
 impl Board {
     pub fn new() -> Self {
-        let empty_cell: Cell = Cell {value: 0, mutable: false};
+        let empty_cell: Cell = Cell {value: 0, mutable: true};
         Self{cells: [[empty_cell; 9]; 9]}
     }
 

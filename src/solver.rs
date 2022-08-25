@@ -15,7 +15,7 @@ impl Solver {
         let mut board_solved = false;
         let mut back_tracking = false;
         let mut counter = 0;
-        let printout_period = 1000;
+        let printout_period = 1;
         let mut i_column = 0;
         let mut i_row = 0;
 
@@ -26,13 +26,13 @@ impl Solver {
             if !board.is_cell_mutable(i_row, i_column) {
                 continue;
             }
-
+            
             // setting 0s to 1
-            if board.get_value(i_row, i_column) == 0 {
+            if board.get_cell_value(i_row, i_column) == 0 {
                 board.set_mutable(i_row, i_column, 1)
             }
             
-            let initial_value = board.get_value(i_row, i_column);
+            let initial_value = board.get_cell_value(i_row, i_column);
 
             // current value may be valid
             //   if we are back tracking, we don't want to use the current value
@@ -61,13 +61,13 @@ impl Solver {
                     board_solved = true;
                     break;
                 }
-                get_next_index(&mut i_row, &mut i_column);
+                Board::get_next_index(&mut i_row, &mut i_column);
             } else {
                 if i_column == 0 && i_row == 0 {
                     println!("XXXXXXX not possible");
                     break
                 }
-                get_prev_index(&mut i_row, &mut i_column);
+                Board::get_prev_index(&mut i_row, &mut i_column);
             }
 
             // Printout
