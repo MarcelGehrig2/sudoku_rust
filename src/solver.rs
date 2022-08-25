@@ -15,7 +15,7 @@ impl Solver {
         let mut board_solved = false;
         let mut back_tracking = false;
         let mut counter = 0;
-        let printout_period = 1;
+        let printout_period = 1000;
         let mut i_column = 0;
         let mut i_row = 0;
         
@@ -32,6 +32,10 @@ impl Solver {
 
             // cant modify unmutable cells
             if !board.is_cell_mutable(i_row, i_column) {
+                if i_column == 8 && i_row == 8 {
+                    board_solved = true;
+                    break;
+                }
                 continue;
             }
             
