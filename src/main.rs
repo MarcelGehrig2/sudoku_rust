@@ -13,19 +13,23 @@ fn main() {
     println!("##############################################################################################");
 
     let file = "./data/sudoku.txt";
-    let boards = read_file::read_input(file);    
+    let boards = read_file::read_input(file);
+    let num_of_boards = boards.len();
+    let mut solved_boards = 0;
+    let mut handled_boards = 0;
                                      
-    println!("Found {} Sudoku Board(s) in {}",boards.len(), file);
+    println!("Found {} Sudoku Board(s) in {}",num_of_boards, file);
     
     for board in boards {
+        handled_boards += 1;
         let mut cur_board = board::Board::from_string(board);
-
         println!(r"**********************************************************************************************");
-        println!("Solving Board:");
+        println!("Solving Board {} of {}:",handled_boards,num_of_boards);
         cur_board.print();
         if solver::Solver::solve(&mut cur_board) {
             println!("Solved Board:");
             cur_board.print();
+            solved_boards += 1;
         }
         else{
             println!("");
@@ -33,6 +37,7 @@ fn main() {
     }
 
     println!(r"**********************************************************************************************");
-    println!(r"Done... =)")
+    println!(r"Done... =)");
+    println!("Could solve {} out of {}!",solved_boards,num_of_boards)
 
 }
