@@ -36,9 +36,8 @@ impl Board {
         
         let mut digits = board.chars();
         let mut cur_row = 0;
-        for n in 0..81{
-            let cur_col = n % 9;
-
+        let mut cur_col = 0;
+        for _n in 0..81{
             let digit : char = digits.next().unwrap();
             assert!(digit.is_numeric());
             let digit_nr = digit.to_digit(10).unwrap();
@@ -46,10 +45,7 @@ impl Board {
             if digit_nr > 0 {
                 my_board.set_unmutable(cur_row,cur_col,digit_nr);
             }
-
-            if cur_col == 8 {
-                cur_row += 1;
-            }
+            Board::get_next_index(&mut cur_row,&mut cur_col);
         }
 
          my_board
@@ -80,5 +76,35 @@ impl Board {
         }
     }
     println!("+-------+-------+-------+");
+    }
+
+    pub fn get_next_index(i_row: &mut usize, i_column: &mut usize){
+        if *i_column < 8{
+            *i_column += 1;
+        }
+        else{
+            *i_column = 0;
+            if *i_row < 8 {
+                *i_row += 1;
+            }
+            else{
+                *i_row = 0;
+            }
+        }
+    }
+
+    pub fn get_prev_index(i_row: &mut usize, i_column: &mut usize){
+        if *i_column > 0{
+            *i_column -= 1;
+        }
+        else{
+            *i_column = 8;
+            if *i_row > 0 {
+                *i_row -= 1;
+            }
+            else{
+                *i_row = 8;
+            }
+        }
     }
 }
