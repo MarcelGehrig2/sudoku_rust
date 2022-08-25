@@ -1,3 +1,5 @@
+
+mod solver;
 mod read_file;
 mod board;
 
@@ -13,6 +15,7 @@ fn main() {
     for board in boards {
         //let mut cur_board = board::Board::from_string(board);
         println!("Solving Board:");
+        solver::Solver::solve(&mut my_board);
         //cur_board.print();
         //solve...
         println!("Solved Board:");
