@@ -35,30 +35,36 @@ impl Solver {
                 continue;
             }
             
+            let mut initial_value = board.get_cell_value(i_row, i_column);
+
             // setting 0s to 1
-            if board.get_cell_value(i_row, i_column) == 0 {
-                board.set_mutable(i_row, i_column, 1)
+            if initial_value == 0 {
+                initial_value = 1;
             }
-            
-            let initial_value = board.get_cell_value(i_row, i_column);
 
             // current value may be valid
             //   if we are back tracking, we don't want to use the current value
             if !back_tracking {
                 if board.is_cell_valid(i_row, i_column, initial_value) {
+                    board.set_mutable(i_row, i_column, initial_value);
                     valid_found = true;
                     continue;
                 }
             }
 
             // if the existing value is not valid, we check if the other 8 numbers have a valid candidate
-            for offset in 0..7 {
-                let test_value = (initial_value + offset) % 9 + 1;
+            for offset in initial_value + 1..9 {
+                // let test_value = (initial_value + offset) % 9 + 1;
+                let test_value = offset;
                 if board.is_cell_valid(i_row, i_column, test_value) {
                     valid_found = true;
                     board.set_mutable(i_row, i_column, test_value);
                     break
                 }
+            }
+
+            if !valid_found {
+                board.set_mutable(i_row, i_column, 0);
             }
 
             // if we dont found a valid soulution we go back
@@ -77,11 +83,14 @@ impl Solver {
                 }
             }
 
+            if back_tracking {
+            }
 
             // Printout
             counter = counter + 1;
             if counter % printout_period == 0 {
                 board.print();
+                counter = counter;
             }
 
         }
