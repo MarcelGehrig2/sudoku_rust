@@ -24,20 +24,9 @@ impl Solver {
         while !board_solved {
             valid_found = false;
 
-            // if we dont found a valid soulution we go back
-            back_tracking = !valid_found;
-
-            if valid_found {
-                if i_column == 8 && i_row == 8 {
-                    board_solved = true;
-                    break;
-                }
+            if !back_tracking {
                 Board::get_next_index(&mut i_row, &mut i_column);
             } else {
-                if i_column == 0 && i_row == 0 {
-                    println!("XXXXXXX not possible");
-                    break
-                }
                 Board::get_prev_index(&mut i_row, &mut i_column);
             }
 
@@ -72,6 +61,21 @@ impl Solver {
                 }
             }
 
+            // if we dont found a valid soulution we go back
+            back_tracking = !valid_found;
+            
+            // Check if finished
+            if valid_found {
+                if i_column == 8 && i_row == 8 {
+                    board_solved = true;
+                    break;
+                }
+            } else {
+                if i_column == 0 && i_row == 0 {
+                    println!("XXXXXXX not possible");
+                    break
+                }
+            }
 
 
             // Printout
