@@ -82,8 +82,8 @@ impl Board {
         let start_col_box = i_col / 3;
         let start_row_box = i_row / 3;
 
-        for row in (3 * start_row_box)..((3 * start_row_box) + 2) {
-            for col in (3 * start_col_box)..((3 * start_col_box) + 2) {
+        for row in (3 * start_row_box)..((3 * start_row_box) + 3) {
+            for col in (3 * start_col_box)..((3 * start_col_box) + 3) {
                 if self.get_cell_value(row, col) == val {
                     return false;
                 }

@@ -53,7 +53,7 @@ impl Solver {
             }
 
             // if the existing value is not valid, we check if the other 8 numbers have a valid candidate
-            for offset in initial_value + 1..9 {
+            for offset in initial_value + 1..=9 {
                 // let test_value = (initial_value + offset) % 9 + 1;
                 let test_value = offset;
                 if board.is_cell_valid(i_row, i_column, test_value) {
