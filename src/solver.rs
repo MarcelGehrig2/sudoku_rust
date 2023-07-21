@@ -48,6 +48,9 @@ impl Solver {
                 if board.is_cell_valid(i_row, i_column, initial_value) {
                     board.set_mutable(i_row, i_column, initial_value);
                     valid_found = true;
+                    if i_column == 8 && i_row == 8 {
+                        board_solved = true;
+                    }
                     continue;
                 }
             }
